@@ -1,0 +1,322 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "d97f868d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import pm4py"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "b5c1ac91",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis = pd.read_csv(\"../data/sepsis.csv\", sep=';')\n",
+    "sepsis_log = pm4py.format_dataframe(sepsis, case_id='case_id', activity_key='activity', timestamp_key='timestamp')\n",
+    "sepsis_log = pm4py.convert_to_event_log(sepsis_log)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "a0ccb1fa",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "len(sepsis_log)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "97314990",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from urllib.request import urlretrieve\n",
+    "import os\n",
+    "\n",
+    "# download from 4tu.nl\n",
+    "urlretrieve('https://data.4tu.nl/file/33632f3c-5c48-40cf-8d8f-2db57f5a6ce7/643dccf2-985a-459e-835c-a82bce1c0339', 'sepsis0.xes.gz')\n",
+    "sepsis_log = pm4py.read_xes('sepsis0.xes.gz')\n",
+    "os.unlink('sepsis0.xes.gz') # clean up"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "7935e23d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "len(sepsis_log)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "9eb3e977",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# number of distinct trace variants\n",
+    "len(pm4py.get_variants_as_tuples(sepsis_log))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "7c6ec313",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis_log"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "a930bb8b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# number of distinct trace variants\n",
+    "len(pm4py.get_variants_as_tuples(sepsis_log))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "ee59dad8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# how does the process start\n",
+    "pm4py.get_start_activities(sepsis_log)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "4144f255",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis = pd.read_csv(\"../data/sepsis.csv\", sep=';')\n",
+    "sepsis_log = pm4py.format_dataframe(sepsis, case_id='case_id', activity_key='activity', timestamp_key='timestamp')\n",
+    "sepsis_log = pm4py.convert_to_event_log(sepsis_log)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "a20971cf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis_log"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "e064df12",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis_log.keys()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "7685c641",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis_log.col"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "b42d7e50",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis_log.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "5352a212",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis_log.describe"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "c81de409",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sepsis_log.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "fe8f6d7b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_inter = pm4py.convert_to_dataframe(sepsis_log)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "bb9960ba",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_inter = pm4py.convert_to_dataframe(sepsis_log)\n",
+    "df_inter.keys"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "143a06bc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_inter = pm4py.convert_to_dataframe(sepsis_log)\n",
+    "df_inter.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "44847648",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pd.to_datetime(df_inter['timestamp'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "1cda66ac",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# number of distinct trace variants\n",
+    "len(pm4py.get_variants_as_tuples(sepsis_log))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "d2d279d5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# number of distinct trace variants\n",
+    "len(pm4py.get_variants_as_tuples(df_inter))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "352cd97a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# how does the process start\n",
+    "pm4py.get_start_activities(df_inter)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "3a601d9f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# how does the process end\n",
+    "pm4py.get_end_activities(sepsis_log)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "513d182f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pm4py.objects.log.util.log import project_traces\n",
+    "def print_nth(log, index):\n",
+    "    print(str(project_traces(sepsis_log)[index]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "52d8f672",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pm4py.objects.log.util.log import project_traces\n",
+    "def print_nth(log, index):\n",
+    "    print(str(project_traces(sepsis_log)[index]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "e4b4c75b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print_nth(sepsis_log, 0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "099ce1b9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print_nth(sepsis_log, 1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "39a570cc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dfg, start_activities, end_activities = pm4py.discover_dfg(sepsis_log)\n",
+    "pm4py.view_dfg(dfg, start_activities, end_activities)"
+   ]
+  }
+ ],
+ "metadata": {},
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
